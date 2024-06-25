@@ -1,0 +1,27 @@
+.searchContainer{
+    margin: 20px auto;
+    width: 500px;
+    position: relative;
+}
+.input{
+    border:none;
+    border-bottom: 2px solid #e3e4dc;
+    padding: 10px 20px;
+    width:100%;
+    outline:none;
+    font-size: 16px;
+    color: #393e46;
+    font-family:sans-serif;
+}
+
+
+@media only screen and (max-width:573px){
+    .searchContainer{
+        width: 200px;
+        /* margin:0 auto; */
+    }
+    /* .input{
+    } */
+    
+        
+}

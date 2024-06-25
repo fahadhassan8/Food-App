@@ -1,0 +1,58 @@
+import { useEffect, useState } from "react";
+import styles from "./foodDetails.module.css";
+import ItemList from "./ItemList";
+export default function FoodDetails({ foodId }) {
+  const [food, setFood] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+  const URL = `https://api.spoonacular.com/recipes/${foodId}/information`;
+  const API_KEY1 = "def97cadf9ec4c54832774cfd3c2d5f3";
+  const API_KEY2 = "aacac4f1a7ed4f929d412ac6ec4e84ba";
+  const API_KEY3 = "0a19245b849848b589a7a4fc230d094d";
+  useEffect(() => {
+    async function fetchFood() {
+      const res = await fetch(`${URL}?apiKey=${API_KEY3}`);
+      const data = await res.json();
+      console.log(data);
+      setFood(data);
+      setIsLoading(false);
+    }
+    fetchFood();
+  }, [foodId]);
+  return (
+    <>
+      <div className={styles.recipeCard}>
+        <h1 className={styles.recipeName}>{food.title}</h1>
+        <img className={styles.recipeImage} src={food.image} alt="" />
+        <div className={styles.recipeDetails}>
+          <span>
+            <strong>🧭 {food.readyInMinutes} Minutes</strong>
+          </span>
+          <span>
+            <strong> 👨‍👩‍👧‍👦 Serves as {food.servings}</strong>
+          </span>
+          <span>
+            {food.vegetarian ? " 🥕 Vegetarian" : " 🍖 Non-Vegetarian"}
+          </span>
+          <span>{food.vegan ? "🐄 Vegan" : ""}</span>
+        </div>
+        <div>
+          💰 <span>{Math.round(food.pricePerServing / 100)} Per Serving</span>
+        </div>
+        <h2>Ingredients</h2>
+            <ItemList food={food} isLoading={isLoading}/>
+        <h2>Instructions</h2>
+        <div className={styles.recipeInstructions}>
+          <ol>
+            {isLoading ? (
+              <p>Loading...</p>
+            ) : (
+              food.analyzedInstructions[0].steps.map((step) => (
+                <li>{step.step}</li>
+              ))
+            )}
+          </ol>
+        </div>
+      </div>
+    </>
+  );
+}
