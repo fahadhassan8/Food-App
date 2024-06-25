@@ -8,6 +8,7 @@ export default function Item({ item }) {
             src={`https://spoonacular.com/cdn/ingredients_50x50/` + item.image}
             alt=""
           />
+          </div>
           <div className={styles.nameContainer}>
             <div className={styles.name}>{item.name}</div>
             <div className={styles.amount}>
@@ -15,7 +16,7 @@ export default function Item({ item }) {
             </div>
           </div>
         </div>
-      </div>
+      
     </>
   );
 }
